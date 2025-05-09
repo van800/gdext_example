@@ -13,6 +13,3 @@
     <AdditionalOptions>-arch arm64 -mmacosx-version-min=11.0 -ffp-contract=off -fobjc-arc -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -fcolor-diagnostics -O0 -gdwarf-4 -g3 -Wall -Wshadow-field-in-constructor -Wshadow-uncaptured-local -Wno-ordered-compare-function-pointers -Wenum-conversion -std=gnu++17 -fno-exceptions  $(AdditionalOptions)</AdditionalOptions>
   </PropertyGroup>
 </Project>
-<!-- CHECKSUM
-%%HASH%%
--->
