@@ -6,21 +6,12 @@
     <NMakeCleanCommandLine>echo Starting SCons &amp; scons --clean --directory=&quot;$(ProjectDir.TrimEnd(&apos;\&apos;))&quot; progress=no platform=macos target=editor arch=arm64 dev_build=yes</NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(NMakeOutput)' == ''">bin/godot.macos.editor.dev.arm64</NMakeOutput>
     <NMakePreprocessorDefinitions>TOOLS_ENABLED;DEBUG_ENABLED;DEV_ENABLED;ENGINE_UPDATE_CHECK_ENABLED;NO_EDITOR_SPLASH;ACCESSKIT_DYNAMIC;ACCESSKIT_ENABLED;MACOS_ENABLED;UNIX_ENABLED;COREAUDIO_ENABLED;COREMIDI_ENABLED;GLES3_ENABLED;METAL_ENABLED;RD_ENABLED;VULKAN_ENABLED;MINIZIP_ENABLED;BROTLI_ENABLED;THREADS_ENABLED;CLIPPER2_ENABLED;ZLIB_DEBUG;ZSTD_STATIC_LINKING_ONLY;VK_USE_PLATFORM_MACOS_MVK;VK_USE_PLATFORM_METAL_EXT;GLAD_ENABLED;EGL_ENABLED;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>godot-cpp/gen/include;godot-cpp/include;godot-cpp/gdextension;/usr/local/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>/usr/local/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
     <NMakeForcedIncludes>$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <NMakeAssemblySearchPath>$(NMakeAssemblySearchPath)</NMakeAssemblySearchPath>
     <NMakeForcedUsingAssemblies>$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
     <AdditionalOptions>-arch arm64 -mmacosx-version-min=11.0 -ffp-contract=off -fobjc-arc -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk -fcolor-diagnostics -O0 -gdwarf-4 -g3 -Wall -Wshadow-field-in-constructor -Wshadow-uncaptured-local -Wno-ordered-compare-function-pointers -Wenum-conversion -std=gnu++17 -fno-exceptions  $(AdditionalOptions)</AdditionalOptions>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(GodotConfiguration)|$(GodotPlatform)'=='editor|arm64'">
-    
-  </PropertyGroup>
-  <ItemGroup Condition="'$(GodotConfiguration)|$(GodotPlatform)'=='editor|arm64'">
-    
-  </ItemGroup>
-
-  <!-- Build/Rebuild/Clean targets for NMake are defined in MSVC, so we need to provide them, when using MSBuild without MSVC targets -->
-  <Import Project="$(MSBuildProjectDirectory)\nmake.substitution.props" Condition="'$(GodotConfiguration)|$(GodotPlatform)'=='editor|arm64' And !Exists('$(VCTargetsPath)\Microsoft.Cpp.targets')" />
 </Project>
 <!-- CHECKSUM
 %%HASH%%

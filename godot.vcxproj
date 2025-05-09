@@ -65,6 +65,7 @@
     <OutDir>$(SolutionDir)\bin\$(GodotPlatform)\$(GodotConfiguration)\</OutDir>
     <IntDir>obj\$(GodotPlatform)\$(GodotConfiguration)\</IntDir>
     <LayoutDir>$(OutDir)\Layout</LayoutDir>
+    <NMakeIncludeSearchPath>godot-cpp/gen/include;godot-cpp/include;godot-cpp/gdextension;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" Condition="Exists('$(VCTargetsPath)\Microsoft.Cpp.props') "/>
   <ImportGroup Label="ExtensionSettings">
@@ -91,9 +92,10 @@
     <ClCompile Include="godot-cpp\**\*.cpp"/>
     <ClCompile Include="src\**\*.cpp"/>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="nmake.substitution.props" />
-  </ItemGroup>
+  
+  <!-- Build/Rebuild/Clean targets for NMake are defined in MSVC, so we need to provide them, when using MSBuild without MSVC targets -->
+  <Import Project="$(MSBuildProjectDirectory)\nmake.substitution.props" Condition="'$(GodotConfiguration)|$(GodotPlatform)'=='editor|arm64' And !Exists('$(VCTargetsPath)\Microsoft.Cpp.targets')" />
+  
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" Condition="Exists('$(VCTargetsPath)\Microsoft.Cpp.targets') "/>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
