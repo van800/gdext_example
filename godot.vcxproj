@@ -5,24 +5,9 @@
       <Configuration>editor</Configuration>
       <Platform>arm64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="template_debug|arm64">
-      <Configuration>template_debug</Configuration>
-      <Platform>arm64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="template_release|arm64">
-      <Configuration>template_release</Configuration>
-      <Platform>arm64</Platform>
-    </ProjectConfiguration>
+    
     <ProjectConfiguration Include="editor|x64">
       <Configuration>editor</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="template_debug|x64">
-      <Configuration>template_debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="template_release|x64">
-      <Configuration>template_release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -36,27 +21,13 @@
     <GodotConfiguration>editor</GodotConfiguration>
     <GodotPlatform>arm64</GodotPlatform>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='template_debug|arm64'">
-    <GodotConfiguration>template_debug</GodotConfiguration>
-    <GodotPlatform>arm64</GodotPlatform>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='template_release|arm64'">
-    <GodotConfiguration>template_release</GodotConfiguration>
-    <GodotPlatform>arm64</GodotPlatform>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='editor|x64'">
     <GodotConfiguration>editor</GodotConfiguration>
     <GodotPlatform>x64</GodotPlatform>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='template_debug|x64'">
-    <GodotConfiguration>template_debug</GodotConfiguration>
-    <GodotPlatform>x64</GodotPlatform>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='template_release|x64'">
-    <GodotConfiguration>template_release</GodotConfiguration>
-    <GodotPlatform>x64</GodotPlatform>
-  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" Condition="Exists('$(VCTargetsPath)\Microsoft.Cpp.Default.props') "/>
+  <Import Project="$(MSBuildProjectDirectory)\MacOSX.Sdk.targets" />
+  
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
@@ -65,7 +36,7 @@
     <OutDir>$(SolutionDir)\bin\$(GodotPlatform)\$(GodotConfiguration)\</OutDir>
     <IntDir>obj\$(GodotPlatform)\$(GodotConfiguration)\</IntDir>
     <LayoutDir>$(OutDir)\Layout</LayoutDir>
-    <NMakeIncludeSearchPath>godot-cpp/gen/include;godot-cpp/include;godot-cpp/gdextension;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>godot-cpp/gen/include;godot-cpp/include;godot-cpp/gdextension;$(CXXIncludeDirs);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" Condition="Exists('$(VCTargetsPath)\Microsoft.Cpp.props') "/>
   <ImportGroup Label="ExtensionSettings">
@@ -75,11 +46,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <Import Project="$(MSBuildProjectDirectory)\godot.macos.editor.arm64.generated.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.macos.editor.arm64.generated.props')"/>
-  <Import Project="$(MSBuildProjectDirectory)\godot.macos.template_debug.arm64.generated.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.macos.template_debug.arm64.generated.props')"/>
-  <Import Project="$(MSBuildProjectDirectory)\godot.macos.template_release.arm64.generated.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.macos.template_release.arm64.generated.props')"/>
   <Import Project="$(MSBuildProjectDirectory)\godot.macos.editor.x86_64.generated.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.macos.editor.x86_64.generated.props')"/>
-  <Import Project="$(MSBuildProjectDirectory)\godot.macos.template_debug.x86_64.generated.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.macos.template_debug.x86_64.generated.props')"/>
-  <Import Project="$(MSBuildProjectDirectory)\godot.macos.template_release.x86_64.generated.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.macos.template_release.x86_64.generated.props')"/>
   <Import Project="$(MSBuildProjectDirectory)\godot.vs.user.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.vs.user.props')"/>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
@@ -92,10 +59,9 @@
     <ClCompile Include="godot-cpp\**\*.cpp"/>
     <ClCompile Include="src\**\*.cpp"/>
   </ItemGroup>
-  
-  <!-- Build/Rebuild/Clean targets for NMake are defined in MSVC, so we need to provide them, when using MSBuild without MSVC targets -->
+    <!-- Build/Rebuild/Clean targets for NMake are defined in MSVC, so we need to provide them, when using MSBuild without MSVC targets -->
   <Import Project="$(MSBuildProjectDirectory)\nmake.substitution.props" Condition="'$(GodotConfiguration)|$(GodotPlatform)'=='editor|arm64' And !Exists('$(VCTargetsPath)\Microsoft.Cpp.targets')" />
-  
+    
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" Condition="Exists('$(VCTargetsPath)\Microsoft.Cpp.targets') "/>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
