@@ -5,7 +5,6 @@
       <Configuration>editor</Configuration>
       <Platform>arm64</Platform>
     </ProjectConfiguration>
-    
     <ProjectConfiguration Include="editor|x64">
       <Configuration>editor</Configuration>
       <Platform>x64</Platform>
@@ -17,6 +16,11 @@
     <Keyword>MakeFileProj</Keyword>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
+  <PropertyGroup>
+    <IsWindows>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))</IsWindows>
+    <IsMac>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))</IsMac>
+    <IsLinux>$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))</IsLinux>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='editor|arm64'">
     <GodotConfiguration>editor</GodotConfiguration>
     <GodotPlatform>arm64</GodotPlatform>
@@ -25,8 +29,9 @@
     <GodotConfiguration>editor</GodotConfiguration>
     <GodotPlatform>x64</GodotPlatform>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" Condition="Exists('$(VCTargetsPath)\Microsoft.Cpp.Default.props') "/>
-  <Import Project="$(MSBuildProjectDirectory)\MacOSX.Sdk.targets" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" Condition="$(IsWindows)"/>
+  <Import Project="$(MSBuildProjectDirectory)\MacOSX.Sdk.targets" Condition="$(IsMac)"/>
+  <Import Project="$(MSBuildProjectDirectory)\Linux.Sdk.targets" Condition="$(IsLinux)"/>
   
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
@@ -36,22 +41,15 @@
     <OutDir>$(SolutionDir)\bin\$(GodotPlatform)\$(GodotConfiguration)\</OutDir>
     <IntDir>obj\$(GodotPlatform)\$(GodotConfiguration)\</IntDir>
     <LayoutDir>$(OutDir)\Layout</LayoutDir>
-    <NMakeIncludeSearchPath>godot-cpp/gen/include;godot-cpp/include;godot-cpp/gdextension;$(CXXIncludeDirs);$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath>godot-cpp/gen/include;godot-cpp/include;godot-cpp/gdextension;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" Condition="Exists('$(VCTargetsPath)\Microsoft.Cpp.props') "/>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" Condition="$(IsWindows)"/>
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(GodotPlatform).user.props" Condition="Exists('$(UserRootDir)\Microsoft.Cpp.$(GodotPlatform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <Import Project="$(MSBuildProjectDirectory)\godot.macos.editor.arm64.generated.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.macos.editor.arm64.generated.props')"/>
-  <Import Project="$(MSBuildProjectDirectory)\godot.macos.editor.x86_64.generated.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.macos.editor.x86_64.generated.props')"/>
-  <Import Project="$(MSBuildProjectDirectory)\godot.vs.user.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.vs.user.props')"/>
-  <PropertyGroup>
-    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <ActiveProjectItemList></ActiveProjectItemList>
-  </PropertyGroup>
+  <Import Project="$(MSBuildProjectDirectory)\godot.macos.editor.arm64.generated.props" Condition="$(IsMac) AND '$(Configuration)|$(Platform)'=='editor|arm64'"/>
+  <Import Project="$(MSBuildProjectDirectory)\godot.macos.editor.x86_64.generated.props" Condition="$(IsMac) AND '$(Configuration)|$(Platform)'=='editor|x64'"/>
+  <Import Project="$(MSBuildProjectDirectory)\godot.user.props" Condition="Exists('$(MSBuildProjectDirectory)\godot.user.props')"/>
   <ItemGroup>
     <ClInclude Include="godot-cpp\**\*.h"/>
     <ClInclude Include="godot-cpp\**\*.hpp"/>
@@ -60,12 +58,7 @@
     <ClCompile Include="src\**\*.cpp"/>
   </ItemGroup>
     <!-- Build/Rebuild/Clean targets for NMake are defined in MSVC, so we need to provide them, when using MSBuild without MSVC targets -->
-  <Import Project="$(MSBuildProjectDirectory)\nmake.substitution.props" Condition="'$(GodotConfiguration)|$(GodotPlatform)'=='editor|arm64' And !Exists('$(VCTargetsPath)\Microsoft.Cpp.targets')" />
+  <Import Project="$(MSBuildProjectDirectory)\nmake.substitution.props" Condition="!Exists('$(VCTargetsPath)\Microsoft.Cpp.targets')" />
     
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" Condition="Exists('$(VCTargetsPath)\Microsoft.Cpp.targets') "/>
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" Condition="$(IsWindows)"/>
 </Project>
-<!-- CHECKSUM
-%%HASH%%
--->
